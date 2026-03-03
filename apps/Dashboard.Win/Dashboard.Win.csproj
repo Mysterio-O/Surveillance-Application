@@ -1,0 +1,15 @@
+
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Agent.Win\Agent.Win.csproj" />
+    <ProjectReference Include="..\..\libs\Contracts\Contracts.csproj" />
+    <ProjectReference Include="..\..\libs\Processing\Processing.csproj" />
+    <ProjectReference Include="..\..\libs\Utils\Utils.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,55 @@
+# Build artifacts
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+*.so
+*.dylib
+
+# IDE & Editor
+.vs/
+.vscode/
+*.user
+*.suo
+*.sln.iml
+.idea/
+*.swp
+*.swo
+*~
+
+# OS specific
+.DS_Store
+Thumbs.db
+.directory
+
+# Runtime & Data
+data/sessions/
+data/logs/
+*.log
+logs/
+
+# Large model files (use git-lfs instead: git lfs track "*.onnx")
+models/onnx/*.onnx
+
+# NuGet
+packages/
+*.nupkg
+.nuget/
+
+# Secrets & local config
+.env
+.env.local
+appsettings.local.json
+secrets.json
+
+# Temp & cache files
+*.tmp
+*.temp
+*.cache
+*.bak
+.cache/
+
+# Backup files
+*.backup
+*~
