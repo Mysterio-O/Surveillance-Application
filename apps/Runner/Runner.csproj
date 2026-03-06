@@ -13,4 +13,10 @@
     <ProjectReference Include="..\..\libs\Processing\Processing.csproj" />
     <ProjectReference Include="..\..\libs\Utils\Utils.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <!-- Copy the shared appsettings.json to the output directory -->
+    <Content Include="..\..\appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>
