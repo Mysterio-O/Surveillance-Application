@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using SurveilWin.Api.Data;
 using SurveilWin.Api.Extensions;
 using SurveilWin.Api.Services;
+using SurveilWin.Api.Services.AI;
 
 namespace SurveilWin.Api.Controllers;
 
@@ -82,4 +83,16 @@ public class ReportsController : ControllerBase
             actualHours = s.ActualHours
         }));
     }
+
+    [HttpPost("generate-ai-summary")]
+    [Authorize(Roles = "SuperAdmin,OrgAdmin")]
+    public async Task<IActionResult> GenerateAiSummary(
+        [FromBody] GenerateAiSummaryRequest request,
+        [FromServices] DailySummaryGenerator generator)
+    {
+        await generator.GenerateForDateAsync(request.Date);
+        return Ok(new { message = "Summary generation started" });
+    }
 }
+
+public record GenerateAiSummaryRequest(DateOnly Date);

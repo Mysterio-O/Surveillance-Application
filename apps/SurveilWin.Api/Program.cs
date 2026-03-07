@@ -6,6 +6,7 @@ using Microsoft.OpenApi.Models;
 using SurveilWin.Api.BackgroundJobs;
 using SurveilWin.Api.Data;
 using SurveilWin.Api.Services;
+using SurveilWin.Api.Services.AI;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -63,6 +64,24 @@ builder.Services.AddScoped<ActivityAggregatorService>();
 builder.Services.AddHostedService<ShiftAutoCloseJob>();
 builder.Services.AddHostedService<ActivityAggregationJob>();
 
+// AI providers
+builder.Services.AddHttpClient("ollama", c => {
+    c.BaseAddress = new Uri(builder.Configuration["Ai:OllamaUrl"] ?? "http://localhost:11434");
+    c.Timeout = TimeSpan.FromSeconds(120);
+});
+builder.Services.AddHttpClient("openai", c => {
+    c.Timeout = TimeSpan.FromSeconds(60);
+});
+builder.Services.AddHttpClient("gemini", c => {
+    c.Timeout = TimeSpan.FromSeconds(60);
+});
+builder.Services.AddSingleton<ILlmProvider, OllamaProvider>();
+builder.Services.AddSingleton<ILlmProvider, OpenAiProvider>();
+builder.Services.AddSingleton<ILlmProvider, GeminiProvider>();
+builder.Services.AddSingleton<LlmProviderFactory>();
+builder.Services.AddScoped<DailySummaryGenerator>();
+builder.Services.AddHostedService<DailySummaryBatchJob>();
+
 // CORS
 builder.Services.AddCors(opts => opts.AddPolicy("AllowAll", p => p
     .AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
@@ -109,6 +128,7 @@ app.UseSwaggerUI();
 app.UseCors("AllowAll");
 app.UseAuthentication();
 app.UseAuthorization();
+app.MapGet("/health", () => Results.Ok(new { status = "healthy", timestamp = DateTimeOffset.UtcNow }));
 app.MapControllers();
 
 app.Run();
