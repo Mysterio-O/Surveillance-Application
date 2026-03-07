@@ -29,12 +29,12 @@ export function AppUsagePieChart({ data }: Props) {
   return (
     <ResponsiveContainer width="100%" height={220}>
       <PieChart>
-        <Pie data={chartData} cx="50%" cy="50%" outerRadius={80} dataKey="value" label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`} labelLine={false}>
+        <Pie data={chartData} cx="50%" cy="50%" outerRadius={80} dataKey="value" label={({ name, percent }) => `${name} ${((percent ?? 0) * 100).toFixed(0)}%`} labelLine={false}>
           {chartData.map((entry, i) => (
             <Cell key={i} fill={CATEGORY_COLORS[entry.category] ?? '#585b70'} />
           ))}
         </Pie>
-        <Tooltip formatter={(val: number) => [`${Math.round(val / 60)}m`, 'Time']} />
+        <Tooltip formatter={(val) => [`${Math.round((val as number) / 60)}m`, 'Time']} />
       </PieChart>
     </ResponsiveContainer>
   );

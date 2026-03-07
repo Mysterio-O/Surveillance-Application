@@ -17,7 +17,7 @@ export function ProductivityTimeline({ data }: Props) {
         <XAxis dataKey="hour" stroke="#a6adc8" tick={{ fontSize: 11 }} />
         <YAxis domain={[0, 100]} stroke="#a6adc8" tick={{ fontSize: 11 }} unit="%" />
         <Tooltip contentStyle={{ background: '#181825', border: '1px solid #313244', color: '#cdd6f4' }}
-                 formatter={(val: number) => [`${val}%`, 'Productivity']} />
+                 formatter={(val) => [`${val as number}%`, 'Productivity']} />
         <Line type="monotone" dataKey="score" stroke="#89b4fa" strokeWidth={2} dot={false} />
       </LineChart>
     </ResponsiveContainer>
