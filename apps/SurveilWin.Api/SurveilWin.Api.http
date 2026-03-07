@@ -1,0 +1,6 @@
+@SurveilWin.Api_HostAddress = http://localhost:5039
+
+GET {{SurveilWin.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
